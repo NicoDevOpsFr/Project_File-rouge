@@ -1,0 +1,53 @@
+version: '3.3'
+
+services:
+  reversproxy:
+      image: nginx
+      container_name: nginx-wordpress-somily
+      volumes:
+        - /home/formation/prometheus/conf.d/grafana.conf:/etc/nginx/conf.d/grafana.conf
+        #- /home/formation/prometheus/conf.d/core.conf:/etc/nginx/conf.d/core.conf
+ #       - /home/formation/prometheus/conf.d/proxy.conf:/etc/nginx/conf.d/proxy.conf
+#        - /home/formation/prometheus/conf.d/:/etc/nginx/conf.d/
+ #       - /home/formation/prometheus/index.html:/var/www/html
+      ports:
+        - "80:80"
+        - "443:443"
+        - "222:22"
+      links:
+        - grafana
+      restart: always 
+
+  
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prom_data:/prometheus
+  
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=grafana
+#      - GF_SERVER_HTTP_PORT=3001
+#      - GF_SERVER_PROTOCOL=http
+#      - GF_SERVER_DOMAIN=control.somily.fr:8080
+#      - GF_SERVER_ROOT_URL=http://control.somily.fr:8080/grafana/
+    volumes:
+      - ./grafana:/etc/grafana/provisioning/datasources
+    expose:
+      - "3001"
+
+volumes:
+  prom_data:
