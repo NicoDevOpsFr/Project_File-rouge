@@ -1,0 +1,140 @@
+---
+
+#- name: Déployement de docker
+#  hosts: web
+#  become: true
+#
+#  tasks:
+#   - name: Installation des paquets systèmes requis
+#     apt:
+#       name:
+#         - apt-transport-https
+#         - ca-certificates
+#         - curl
+#         - software-properties-common
+#         - python3-pip
+#         - virtualenv
+#         - python3-setuptools 
+#       state: latest
+#       update_cache: true
+#
+#   - name: Add Docker GPG apt Key
+#     apt_key:
+#       url: https://download.docker.com/linux/ubuntu/gpg
+#       state: present
+#
+#   - name: Ajout d'un Docker Repository
+#     apt_repository:
+#       repo: deb https://download.docker.com/linux/ubuntu focal stable
+#       state: present
+#
+#   - name: Installation de docker-ce et docker-compose
+#     apt:
+#       name:
+#         - docker-ce
+#         - docker-compose
+#       state: latest
+#       update_cache: true
+#
+#   - name: Installation du module docker pour python
+#     pip:
+#       name: 
+#        - docker
+#        - jsondiff
+#
+- name: ==== Mise en place du proxy NGINX ====
+  hosts: web
+  become: true
+
+  tasks:
+    - name: ___Installation du service NGINX___
+      apt:
+        name: nginx
+        state: present
+        update_cache: true
+
+    - name: ___Arrêt du service NGINX___
+      service:
+        name: nginx
+        state: stopped
+        enabled: true
+
+    - name: ___Copie des fichiers de configuration___
+      copy:
+        src: /home/formation/prometheus/conf.d/grafana.conf
+        dest: /etc/nginx/sites-available/grafana.conf
+        owner: formation
+        group: formation
+        mode: 0644
+
+    - name: ___Activation des fichiers de configuration___
+      file:
+        src: /etc/nginx/sites-available/grafana.conf
+        dest: /etc/nginx/sites-enabled/grafana.conf
+        state: link
+
+    - name: ___Désactivation de la configuration NGINX par défaut (default.conf)___
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+
+    - name: ___Redemarrage du service NGINX___
+      service:
+        name: nginx
+        state: started
+
+- name: Installation de prometheus et Grafana sur 137.74.106.193
+  hosts: monitoring
+  become: true
+
+  tasks:
+
+  - name: Installation des paquets systèmes requis
+    apt:
+       name:
+         - apt-transport-https
+         - ca-certificates
+         - curl
+         - software-properties-common
+         - python3-pip
+         - virtualenv
+         - python3-setuptools 
+       state: latest
+       update_cache: true
+
+  - name: Add Docker GPG apt Key
+    apt_key:
+       url: https://download.docker.com/linux/ubuntu/gpg
+       state: present
+
+  - name: Ajout d'un Docker Repository
+    apt_repository:
+       repo: deb https://download.docker.com/linux/ubuntu focal stable
+       state: present
+
+  - name: Installation de docker-ce et docker-compose
+    apt:
+       name:
+         - docker-ce
+         - docker-compose
+       state: latest
+       update_cache: true
+
+  - name: Installation du module docker pour python
+    pip:
+       name: 
+        - docker
+        - jsondiff
+    
+  - name: Copie du dossier ./prometheus vers /monitoring/
+    copy:
+        src: /home/formation/prometheus
+        dest: /monitoring/
+        mode: 0755
+
+    
+  - name: Lancement du docker-compose
+    command: docker-compose up -d # très important -d !!
+    args:
+      chdir: /monitoring/prometheus # Mettre la direction ou se trouve le docker-compose
+     
