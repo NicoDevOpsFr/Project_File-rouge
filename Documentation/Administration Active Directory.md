@@ -16,7 +16,7 @@ New-ADOrganizationalUnit -Name Dev -Path "ou=Dev,ou=Technique,dc=formation,dc=lo
 
 
 ## Réalisation d'un script pour gérer les utilisateurs dans l'AD en utilisant un .csv
-* L'AD peut également être géré en utilisant des scripts. Voici comment créer un script qui permet de créer des utilisateurs dans l'AD à partir d'un fichier .csv :
+* Voici le script qui permet de créer des utilisateurs dans l'AD à partir d'un fichier .csv :
 
 ```ps1 
 Clear-Host
