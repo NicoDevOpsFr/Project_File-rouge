@@ -116,10 +116,10 @@ Si le nom d'un utilisateur enregistré n'est pas dans le fichier.csv, alors il e
 * 2 fichiers.csv sont exportés à l'issu du run. Un qui stocke les utilisateurs existants et un autre les utilisateurs supprimés. Les fichiers sont écrasés et renouvelés à chaque run du script.
 
 ## Vérifications
-![Organisations des OUs et intégration du personnel](verif1.png)
+![Organisations des OUs et intégration du personnel](./Images/verif1.png)
 
-![Création des groupes par département](verif2.png)
+![Création des groupes par département](./Images/verif1.png)
 
-![Fichier Utilisateurs existants](verif3.png)
+![Fichier Utilisateurs existants](./Images/verif1.png)
 
-![Fichier Utilisateurs supprimés](verif4.png)
+![Fichier Utilisateurs supprimés](./Images/verif1.png)
