@@ -1,0 +1,29 @@
+- name: Playbook d'arret de wordpress
+  hosts: web
+  become: true
+
+  tasks:
+    - name: Arret du docker-compose
+      command: docker-compose down
+      args:
+        chdir: /home/debian
+
+- name: Playbook d'arret de git
+  hosts: git
+  become: true
+
+  tasks:
+    - name: Arret du docker-compose
+      command: docker-compose down
+      args:
+        chdir: /home/formation
+
+- name: Playbook d'arret de la base de donnée
+  hosts: db
+  become: true
+
+  tasks:
+    - name: Arret du docker-compose
+      command: docker-compose down
+      args:
+        chdir: /home/formation

@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3001:3000"
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=pierre
+      - GF_SECURITY_ADMIN_PASSWORD=pierre
+#      - GF_SERVER_HTTP_PORT=3001
+#      - GF_SERVER_PROTOCOL=http
+#      - GF_SERVER_DOMAIN=control.somily.fr:8080
+#      - GF_SERVER_ROOT_URL=http://control.somily.fr:8080/grafana/
+    volumes:
+      - /home/formation/grafana/volume/:/etc/grafana/provisioning/datasources
+    #expose:
+    #  - "3001:3001"
+
+

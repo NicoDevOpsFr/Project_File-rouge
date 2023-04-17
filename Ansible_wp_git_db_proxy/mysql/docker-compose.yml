@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:latest
+    container_name: database
+    environment:
+      - MYSQL_ROOT_PASSWORD=pierre1234
+      #- MYSQL_USER=root
+      #- MYSQL_PASSWORD=pierre
+      #- MYSQL_RANDOM_ROOT_PASSWORD='1'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    #command: --init-file /data/application/init.sql
+    volumes:
+      - /home/formation/database_users/databases.sql:/docker-entrypoint-initdb.d/databases.sql
+      - /home/formation/volume:/var/lib/mysql
+    ports:
+      - 3306:3306
+      - 9100:9100
+
+#  db:
+#    image: mysql:5.6
+#    environment:
+#      - MYSQL_USER=root
+#      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+#    entrypoint:
+#      sh -c "
+#        echo 'CREATE DATABASE IF NOT EXISTS wordpress; CREATE DATABASE IF NOT EXISTS git;' > /docker-entrypoint-initdb.d/init.sql;
+#        /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+#      "
+#    ports:
+#      - 3306:3306 

@@ -1,0 +1,22 @@
+- name: ___Installation de docker___
+  shell: |
+    sudo apt-get update
+    sudo apt-get install curl
+    curl -fsSL https://get.docker.com/ | sh
+    sudo usermod -aG docker "{{ wordpress_username }}"
+
+- name: ___Installation de docker-compose___
+  shell: |
+    sudo curl -L https://github.com/docker/compose/releases/download/1.25.3/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+
+- name: ___Copie du fichier docker-compose___
+  copy:
+    src: ./wordpress/docker-compose.yml
+    dest: /home/"{{ wordpress_username }}"/docker-compose.yml
+    mode: 0644
+  
+- name: ___Lancement du docker-compose___
+  command: sudo docker-compose up -d
+  args:
+    chdir: /home/"{{ wordpress_username }}"

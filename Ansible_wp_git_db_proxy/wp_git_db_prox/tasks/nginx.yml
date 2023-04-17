@@ -1,0 +1,87 @@
+- name: ___Installation du service NGINX___
+  apt:
+    name: nginx
+    state: present
+    update_cache: true
+
+- name: ___Arrêt du service NGINX___
+  service:
+    name: nginx
+    state: stopped
+    enabled: true
+
+- name: ___Création de différents fichiers___
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - /var/www/landing_page
+    - /home/"{{ nginx_username }}"/script
+
+- name: ___Copie de l'index.html___
+  copy:
+    src: ./index/index.html
+    dest: /var/www/landing_page/index.html
+    owner: "{{ nginx_username }}"
+    group: "{{ nginx_username }}"
+    mode: 064
+
+- name: ___Copie des fichiers de configuration___
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ nginx_username }}"
+    group: "{{ nginx_username }}"
+    mode: 0644
+  loop:
+    - src: ./wordpress/conf.d/wordpress.conf
+      dest: /etc/nginx/sites-available/wordpress.conf
+    - src: ./git/conf.d/git.conf
+      dest: /etc/nginx/sites-available/git.conf
+    - src: ./index/conf.d/index.conf
+      dest: /etc/nginx/sites-available/index.con
+
+- name: ___Copie du script CERTBOT___
+  copy:
+    src: ./scripts/certbot_installation_script.sh
+    dest: /home/"{{ nginx_username }}"/scripts/certbot_installation_script.sh
+    owner: "{{ nginx_username }}"
+    group: "{{ nginx_username }}"
+    mode: 064
+
+- name: ___Copie du cron CERTBOT___
+  copy:
+    src: ./cron.d/cron_certbot_renew_60days
+    dest: /etc/cron.d/cron_certbot_renew_60days
+    owner: "{{ nginx_username }}"
+    group: "{{ nginx_username }}"
+    mode: 064
+
+- name: ___Création du fichier renew.log___
+  command: sudo touch /var/log/letsencrypt/renew.log
+
+- name: ___Lecture du scipt CERTBOT___
+  script: /home/"{{ nginx_username }}"/scripts/certbot_installation_script.sh
+
+- name: ___Activation des fichiers de configuration___
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - src: /etc/nginx/sites-available/wordpress.conf
+      dest: /etc/nginx/sites-enabled/wordpress.conf
+    - src: /etc/nginx/sites-available/git.conf
+      dest: /etc/nginx/sites-enabled/git.conf
+    - src: /etc/nginx/sites-available/index.conf
+      dest: /etc/nginx/sites-enabled/index.conf
+
+- name: ___Désactivation de la configuration NGINX par défaut (default.conf)___
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: ___Redemarrage du service NGINX___
+  service:
+    name: nginx
+    state: started

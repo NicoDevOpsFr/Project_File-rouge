@@ -1,0 +1,18 @@
+- name: ==== Mise en place du proxy NGINX ====
+  hosts: proxy
+  become: true
+  vars_files:
+    - <path>
+
+- name: ==== Mise en place de MYSQL ====
+  hosts: db
+  become: true
+
+- name: ==== Mise en place de WORDPRESS avec docker-compose ====
+  hosts: web
+  become: true
+
+- name: ==== Mise en place de GITEA avec docker-compose ====
+  hosts: git
+  become: true
+

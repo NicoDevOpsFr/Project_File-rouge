@@ -1,0 +1,112 @@
+- name: ==== Mise en place du proxy NGINX ====
+  hosts: proxy
+  become: true
+
+  tasks:
+  - name: ___Copie des fichiers de configuration___
+    copy:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+      owner: formation
+      group: formation
+      mode: 0644
+    loop:
+      - src: ./grafana/conf.d/grafana.conf
+        dest: /etc/nginx/sites-available/grafana.conf
+      - src: ./prometheus/conf.d/prometheus.conf
+        dest: /etc/nginx/sites-available/prometheus.conf
+
+  - name: ___Activation des fichiers de configuration___
+    file:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+      state: link
+    loop:
+      - src: /etc/nginx/sites-available/grafana.conf
+        dest: /etc/nginx/sites-enabled/grafana.conf
+      - src: /etc/nginx/sites-available/prometheus.conf
+        dest: /etc/nginx/sites-enabled/prometheus.conf
+
+  - name: ___Redemarrage du service NGINX___
+    service:
+      name: nginx
+      state: started
+
+- name: Installation de prometheus
+  hosts: git
+  become: true
+
+  tasks:
+  - name: Installation des paquets systèmes requis
+    apt:
+       name:
+         - apt-transport-https
+         - ca-certificates
+         - curl
+         - software-properties-common
+         - python3-pip
+         - virtualenv
+         - python3-setuptools 
+       state: latest
+       update_cache: true
+
+  - name: Création du fichier prometheus dans le home directory
+    file:
+      path: /home/formation/prometheus
+      state: directory
+
+  - name: Création du fichier volume dans le dossier prometheus précédement créé
+    file:
+      path: /home/formation/prometheus/volume
+      state: directory
+
+  - name: Copie du fichiers prometheus en yaml
+    copy:
+        src: ./prometheus/prometheus.yml
+        dest: /home/formation/prometheus/prometheus.yml
+        mode: 0755
+
+  - name: Copie du fichiers docker-compose
+    copy:
+      src: ./prometheus/docker-compose.yml
+      dest: /home/formation/prometheus/docker-compose.yml
+      mode: 0755
+
+  - name: Lancement du docker-compose
+    command: docker-compose up -d # très important -d !!
+    args:
+      chdir: /home/formation/prometheus # Mettre la direction ou se trouve le docker-compose
+
+- name: Installation de grafana
+  hosts: web
+  become: true
+
+  tasks:
+  - name: Installation des paquets systèmes requis
+    apt:
+       name:
+         - apt-transport-https
+         - ca-certificates
+         - curl
+         - software-properties-common
+         - python3-pip
+         - virtualenv
+         - python3-setuptools 
+       state: latest
+       update_cache: true
+
+  - name: Création de différents fichiers
+    file:
+      path: /home/debian/grafana/volume
+      state: directory
+
+  - name: Copie des fichiers docker-compose
+    copy:
+        src: ./grafana/docker-compose.yml
+        dest: /home/debian/grafana/docker-compose.yml
+        mode: 0755
+
+  - name: Lancement du docker-compose
+    command: docker-compose up -d # très important -d !!
+    args:
+      chdir: /home/debian/grafana # Mettre la direction ou se trouve le docker-compose

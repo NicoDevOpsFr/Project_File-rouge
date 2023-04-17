@@ -1,0 +1,40 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: '"{{ job_name_wordpress }}"'
+    metrics_path: '/metrics'
+    scheme: 'http'
+    static_configs:
+      - targets: ['"{{ ip_address_wordpress }}":9100']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+      - source_labels: [__meta_docker_compose_service]
+        action: replace
+        target_label: job
+      - source_labels: [__meta_docker_compose_service]
+        regex: "(.+)"
+        target_label: service
+        replacement: "$1"
+      - source_labels: [__meta_docker_compose_container_label_com_docker_compose_project]
+        target_label: project
+
+  - job_name: '" {{ job_name_git }}"'
+    metrics_path: '/metrics'
+    scheme: 'http'
+    static_configs:
+      - targets: ['"{{ ip_address_gitea }}":9100']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+      - source_labels: [__meta_docker_compose_service]
+        action: replace
+        target_label: job
+      - source_labels: [__meta_docker_compose_service]
+        regex: "(.+)"
+        target_label: service
+        replacement: "$1"
+      - source_labels: [__meta_docker_compose_container_label_com_docker_compose_project]
+        target_label: project

@@ -1,0 +1,57 @@
+- name: ___Installation de docker___
+  shell: |
+    sudo apt-get update
+    sudo apt-get install curl
+    curl -fsSL https://get.docker.com/ | sh
+    sudo usermod -aG docker "{{ mysql_username }}"
+  args:
+    executable: /bin/bash
+
+- name: ___Installation de docker-compose___
+  shell: |
+    sudo curl -L https://github.com/docker/compose/releases/download/1.25.3/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+  
+- name: ___Création du fichier database_users dans le home directory___
+  file:
+    path: /home/"{{ mysql_username }}"/database_users
+    state: directory
+
+- name: ___Création de différents fichiers___
+  file:
+    path: /home/"{{ mysql_username }}"/volume
+    state: directory
+#  
+#- name: ___copie du fichier docker-compose___
+#  copy:
+#    src: ./mysql/docker-compose.yml
+#    dest: /home/"{{ mysql_username }}"/docker-compose.yml
+#    owner: "{{ mysql_username }}"
+#    group: "{{ mysql_username }}"
+#    mode: 0644
+#
+#- name: ___copie du fichier databases.sql___
+#  copy:
+#    src: ./mysql/database/databases.sql
+#    dest: /home/"{{mysql_username}}"/database_users/databases.sql
+#    owner: "{{ mysql_username }}"
+#    group: "{{ mysql_username }}"
+#    mode: 0644
+#
+- name: ___Copie des fichiers databases.sql et docker-compose___
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ mysql_username }}"
+    group: "{{ mysql_username }}"
+    mode: 0644
+    loop:
+      - src: ./mysql/docker-compose.yml
+        dest: /home/"{{ mysql_username }}"/docker-compose.yml
+      - src: ./mysql/database/databases.sql
+        dest: /home/"{{ mysql_username }}"/database_users/databases.sql
+
+- name: ___Lancement du docker-compose___
+  command: sudo docker-compose up -d
+  args:
+    chdir: /home/"{{ mysql_username }}"/

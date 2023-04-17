@@ -1,0 +1,18 @@
+version: '3.3'
+
+services:
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3001:3000"
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER="{{ grafana_username_account }}"
+      - GF_SECURITY_ADMIN_PASSWORD="{{ grafana_password_account }}"
+    volumes:
+      - /home/"{{ grafana_username }}"/grafana/volume/:/etc/grafana/provisioning/datasources
+
+
+

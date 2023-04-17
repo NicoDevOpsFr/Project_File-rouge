@@ -1,0 +1,50 @@
+---
+# Fichier de variables pour wp_git_db_prox
+
+# Variables pour NGINX
+ip_address_nginx: 141.94.6.209
+nginx_username: formation
+
+# Variables pour MYSQL
+ip_address_mysql: 141.94.6.207
+mysql_username: formation
+mysql_root_password: pierre1234
+name_database_wordpress: wordpress
+user_database_wordpress: wordpress
+password_database_wordpress: wordpress
+name_database_git: git
+user_database_git: git
+password_database_git: git
+
+# Variables pour WORDPRESS
+ip_address_wordpress: 217.182.205.43
+wordpress_username: debian
+sous_domaine_wordpress: wordpress.somily.fr
+sous_domaine_www_wordpress: www.wordpress.somily.fr
+name_job_prometheus: wordpress
+
+# Variables pour GITEA
+ip_address_gitea: 141.94.6.208
+gitea_username: formation
+sous_domaine_git: git.somily.fr
+sous_domaine_www_git: www.git.somily.fr
+
+# Variables pour GRAFANA
+ip_address_grafana: 141.94.6.208
+grafana_username: formation
+sous_domaine_grafana: grafana.somily.fr
+sous_domaine_www_grafana: www.grafana.somily.fr
+grafana_username_account: pierre
+grafana_password_account: pierre
+
+# Variables pour PROMETHEUS
+ip_address_prometheus: 141.94.6.208
+prometheus_username: formation
+sous_domaine_prometheus: prometheus.somily.fr
+sous_domaine_www_prometheus: www.prometheus.somily.fr
+job_name_wordpress: wordpress
+job_name_git: git
+
+# Variables pour index de www.somily.fr
+sous_domaine_somily: somily.fr
+sous_domaine_www_somily: www.somily.fr

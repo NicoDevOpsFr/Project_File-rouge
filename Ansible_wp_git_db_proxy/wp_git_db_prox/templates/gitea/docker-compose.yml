@@ -1,0 +1,52 @@
+version: '3'
+
+services:  
+  git:
+    image: gitea/gitea:latest
+    container_name: git
+    environment:
+      - USER="{{ gitea_username }}"
+      - USER_UID=1000
+      - USER_GID=1000
+      - USE_PROXY_PROTOCOL=true
+      - DOMAIN="{{ sous_domaine_git }}"
+      - SSH="{{ sous_domaine_git }}"
+      - GITEA__database__DB_TYPE=mysql
+      - GITEA__database__HOST="{{ ip_address_mysql }}":3306
+      - GITEA__database__USER="{{ user_database_git }}"
+      - GITEA__database__PASSWD="{{ password_database_git }}"
+      - GITEA__database__NAME="{{ name_database_git }}"
+      - ROOT_URL=http://"{{ sous_domaine_git }}"/
+      - HTTP_PORT=80
+      - SSH_PORT=22
+      - SSH_LISTEN_PORT=22
+      - HTTP_PORT=3000
+      - PROXY_ENABLED=true
+      - PROXY_URL=http://"{{ ip_address_nginx }}":80
+    restart: always
+    volumes:
+      - /home/"{{ gitea_username }}"/git/git/:/data
+      - /home/"{{ gitea_username }}"/git/.ssh/:/data/git/.ssh
+      - /etc/timezone/:/etc/timezone:ro
+      - /etc/localtime/:/etc/localtime:ro
+    ports:
+      - 8080:80
+      - 8443:443
+      - 3000:3000
+      - "2222:22"
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    ports:
+      - 9100:9100

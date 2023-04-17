@@ -1,0 +1,39 @@
+- name: Installation des paquets systèmes requis
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - python3-pip
+      - virtualenv
+      - python3-setuptools 
+    state: latest
+    update_cache: true
+
+- name: Création du fichier prometheus dans le home directory
+  file:
+    path: /home/formation/prometheus
+    state: directory
+
+- name: Création du fichier volume dans le dossier prometheus précédement créé
+  file:
+    path: /home/formation/prometheus/volume
+    state: directory
+
+- name: Copie du fichiers prometheus en yaml
+  copy:
+    src: ./prometheus/prometheus.yml
+    dest: /home/formation/prometheus/prometheus.yml
+    mode: 0755
+
+- name: Copie du fichiers docker-compose
+  copy:
+    src: ./prometheus/docker-compose.yml
+    dest: /home/formation/prometheus/docker-compose.yml
+    mode: 0755
+
+- name: Lancement du docker-compose
+  command: docker-compose up -d # très important -d !!
+  args:
+    chdir: /home/formation/prometheus # Mettre la direction ou se trouve le docker-compose
