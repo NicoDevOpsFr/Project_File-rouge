@@ -118,8 +118,8 @@ Si le nom d'un utilisateur enregistré n'est pas dans le fichier.csv, alors il e
 ## Vérifications
 ![Organisations des OUs et intégration du personnel](./Images/verif1.png)
 
-![Création des groupes par département](./Images/verif1.png)
+![Création des groupes par département](./Images/verif2.png)
 
-![Fichier Utilisateurs existants](./Images/verif1.png)
+![Fichier Utilisateurs existants](./Images/verif3.png)
 
-![Fichier Utilisateurs supprimés](./Images/verif1.png)
+![Fichier Utilisateurs supprimés](./Images/verif4.png)
