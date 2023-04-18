@@ -81,13 +81,7 @@
 
 ### Built With
 
-* [![Docker][Docker.com]][Docker-url]
-* [![Ansible][Ansible.com]][Ansible-url]
-* [![Nginx][Nginx.com]][Nginx-url]
-* [![Grafana][Grafana.com]][Grafana-url]
-* [![Prometheus][Prometheus.com]][Prometheus-url]
-* [![WordPress][Wordpress.com]][Wordpress-url]
-* [![Gitea][Gitea.com]][Gitea-url]
+[![Docker][Docker.com]][Docker-url] [![Ansible][Ansible.com]][Ansible-url] [![Nginx][Nginx.com]][Nginx-url] [![Grafana][Grafana.com]][Grafana-url] [![Prometheus][Prometheus.com]][Prometheus-url] [![WordPress][Wordpress.com]][Wordpress-url] [![Gitea][Gitea.com]][Gitea-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
