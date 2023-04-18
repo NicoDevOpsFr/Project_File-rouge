@@ -90,6 +90,8 @@ Ce fichier est composé des arguments suivant :
 - `proxy_pass` : Définit l'URL du serveur cible, qui sera utilisé pour traiter la requête.
 - `proxy_set_header` : En-têtes personnalisés pour la requête envoyée au serveur cible. Dans ce fichier, elles ajoutent l'adresse IP réelle du client, l'adresse IP du serveur proxy et le nom de domaine du serveur. Ces en-têtes seront utilisés pour les analyses de logs et la sécurité.
 
+Vous trouverez plus d'information dans la [documentation officielle](https://nginx.org/en/docs/) de `NGINX`.
+
 ### Fichier de configuration écoutant sur le port 443 pour avoir le `HTTPS`
 
 #### Certificat SSL
