@@ -1,4 +1,4 @@
-# Installation d'un serveur nginx pour Wordpress
+# Installation d'un serveur nginx comme reverse proxy
 
 ---
 
