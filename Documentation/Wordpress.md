@@ -49,13 +49,10 @@ Ce fichier docker-compose définit un service appelé "web" qui exécute l'image
 - `WORDPRESS_DB_NAME=<nom_database>` : Nom de la base de données du site wordpress.
 
 Ces variables d'environnement permettent au conteneur WordPress de se connecter au conteneur MySQL de la base de données qui s'exécute sur le même réseau.
+D'autres variables d'environnement sont possibles. Pour cela, il faut se référer à l [adocumentation](https://hub.docker.com/_/wordpress).
 
 **Labels :** Deux labels, ou étiquettes en français sont ajoutées au conteneur, qui peuvent être utilisées par un système de surveillance comme Prometheus pour suivre et extraire des métriques à partir du conteneur. 
 
 L'étiquette `prometheus_job=wordpress` identifie ce conteneur en tant que service WordPress, et l'étiquette `"prometheus.path=/metrics"` spécifie le chemin où le conteneur expose ses métriques.
 
 **Ports :** Le conteneur WordPress est configuré pour exposer les ports 80 et 443, ce qui permet au trafic externe d'atteindre le site WordPress. Le **port 80** est le port HTTP standard, tandis que le **port 443** est le port HTTPS standard.
-
-Dans ce même fichier docker-compose.yml qui exécute wordpress, on peut exécuter un service node-exporter à la suite définit comme suit:
-
-## Lien avec Prometheus
