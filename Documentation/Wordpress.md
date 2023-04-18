@@ -1,4 +1,4 @@
-# Mise en place d'un site wordpress conteunerisé
+# Mise en place d'un site wordpress conteneurisé
 ---
 
 ## Introduction
