@@ -13,7 +13,7 @@ Dans cette documentation, on détaillera l'installation de `NGINX` via un playbo
 
 Le fichier `Ansible` sera construit comme suit pour l'installation de NGINX avec les configurations nécessaires.
 
-```
+```yml
 - name: ==== Mise en place du proxy NGINX ====
   hosts: # Groupe définie dans le fichier inventaire.
   become: true
@@ -68,7 +68,7 @@ Il est possible de créer au tant de fichiers de configuration que d'application
 
 Le fichier de configuration sera comme suit pour <nom_application>.conf :
 
-```
+```conf
 server {
     listen 80;
     server_name <exemple.fr> <www.exemple.fr> <foo.exemple.fr> <www.foo.exemple.fr>;
@@ -100,8 +100,9 @@ Pour l'obtention du `HTTPS` sera utilisé certbot dans le but d'obtenir les cert
 Pour l'utilisation de ce robot, il faut passer par son installation. Pour plus d'information, merci de suive la [documentation officielle](https://certbot.eff.org/).
 
 Il sera utilisé la commande suivante :
-```
-sudo certbot --nginx -d <exemple.fr> -d <www.exemple.fr> -d <foo.exemple.fr> -d <www.foo.exemple.fr>
+
+```bash
+$ sudo certbot --nginx -d <exemple.fr> -d <www.exemple.fr> -d <foo.exemple.fr> -d <www.foo.exemple.fr>
 ```
 
 Le fichier de configuration écoutant sur le port 80 sera automatiquement modifié.
@@ -109,7 +110,8 @@ Le fichier de configuration écoutant sur le port 80 sera automatiquement modifi
 #### Fichier de configuration
 
 Après l'utilisation de ce robot, on obtiendra automatiquement le fichier suivant :
-```
+
+```conf
 server {
     server_name <exemple.fr> <www.exemple.fr> <foo.exemple.fr> <www.foo.exemple.fr>;
 
