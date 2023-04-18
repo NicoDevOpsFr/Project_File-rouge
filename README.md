@@ -32,21 +32,21 @@
   <p align="center">
     Projet de fin de formation dont le but est de mettre en place un cluster avec un wordpress, un gitea, une base de donnée, un reverse-proxy et une solution de monitoring.
     <br />
-    <a href="https://github.com/NicoDevOpsFr/Project_File-rouge"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/NicoDevOpsFr/Project_File-rouge"><strong>Exploration du document »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/NicoDevOpsFr/Project_File-rouge">View Demo</a>
+    <a href="https://github.com/NicoDevOpsFr/Project_File-rouge">Démonstration</a>
     ·
-    <a href="https://github.com/NicoDevOpsFr/Project_File-rouge/issues">Report Bug</a>
+    <a href="https://github.com/NicoDevOpsFr/Project_File-rouge/issues">Rapporter un Bug</a>
     ·
-    <a href="https://github.com/NicoDevOpsFr/Project_File-rouge/issues">Request Feature</a>
+    <a href="https://github.com/NicoDevOpsFr/Project_File-rouge/issues">Demande de fonctionnalité</a>
   </p>
 </div>
 
-
+---
 
 <!-- Sommaire -->
-<details>
+
   <summary>Sommaire</summary>
   <ol>
     <li>
@@ -70,17 +70,14 @@
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
-</details>
 
-
+---
 
 <!-- A propose du projet -->
 ## A propose du projet
 ![couverture](https://github.com/NicoDevOpsFr/Project_File-rouge/blob/main/images/couverture.svg)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 ### Built With
 
@@ -93,6 +90,8 @@
 * [![Gitea][Gitea.com]][Gitea-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
 
 <!-- Documentation -->
 ## Documentation
