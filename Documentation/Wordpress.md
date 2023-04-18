@@ -11,7 +11,7 @@ Cette documentation montrera comment installer wordpress grâce à `Docker` et p
 
 Le fichier docker-compose.yml pour l'installation de wordpress se définit comme suit:
 
-```
+```yml
 version: '3.3'
 
 services:
