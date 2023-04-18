@@ -18,13 +18,6 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
 
 
 <!-- PROJECT LOGO -->
@@ -37,41 +30,42 @@
 <h3 align="center">Projet Fil Rouge</h3>
 
   <p align="center">
-    project_description
+    Projet de fin de formation dont le but est de mettre en place un cluster avec un wordpress, un gitea, une base de donnée, un reverse-proxy et une solution de monitoring.
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/NicoDevOpsFr/Project_File-rouge"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
+    <a href="https://github.com/NicoDevOpsFr/Project_File-rouge">View Demo</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
+    <a href="https://github.com/NicoDevOpsFr/Project_File-rouge/issues">Report Bug</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
+    <a href="https://github.com/NicoDevOpsFr/Project_File-rouge/issues">Request Feature</a>
   </p>
 </div>
 
 
 
-<!-- TABLE OF CONTENTS -->
+<!-- Sommaire -->
 <details>
-  <summary>Table of Contents</summary>
+  <summary>Sommaire</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
+      <a href="#A propose du projet">A propose du projet</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Getting Started</a>
+      <a href="#Documentation">Documentation</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#Reverse proxy">Reverse proxy</a></li>
+        <li><a href="#Wordpress">Wordpress</a></li>
+        <li><a href="#Gitea">Gitea</a></li>
+        <li><a href="#MySQL">MySQL</a></li>
+        <li><a href="#Grafana">Grafana</a></li>
+        <li><a href="#Prometheus">Prometheus</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -80,12 +74,9 @@
 
 
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
-![cuverture](https://github.com/NicoDevOpsFr/Project_File-rouge/blob/main/images/couverture.svg)
-
-
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+<!-- A propose du projet -->
+## A propose du projet
+![couverture](https://github.com/NicoDevOpsFr/Project_File-rouge/blob/main/images/couverture.svg)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -93,100 +84,47 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ### Built With
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+* [![Docker][Docker.com]][Docker-url]
+* [![Ansible][Ansible.com]][Ansible-url]
+* [![Nginx][Nginx.com]][Nginx-url]
+* [![Grafana][Grafana.com]][Grafana-url]
+* [![Prometheus][Prometheus.com]][Prometheus-url]
+* [![WordPress][Wordpress.com]][Wordpress-url]
+* [![Gitea][Gitea.com]][Gitea-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- Documentation -->
+## Documentation
 
+<!-- Reverse proxy -->
+### Reverse proxy
+Vous trouverez à ce [lien](https://github.com/NicoDevOpsFr/Project_File-rouge/blob/main/Documentation/Nginx.md) la documentation concernant la mise en place du reverse-proxy `NGINX`.
 
-<!-- GETTING STARTED -->
-## Getting Started
+<!-- Wordpress -->
+### Wordpress
+Vous trouverez à ce [lien](https://github.com/NicoDevOpsFr/Project_File-rouge/blob/main/Documentation/Wordpress.md) la documentation concernant la mise en place du site `WORDPRESS`.
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+<!-- Gitea -->
+### Gitea
+Vous trouverez à ce [lien](https://github.com/NicoDevOpsFr/Project_File-rouge/blob/main/Documentation/gitea.md) la documentation concernant la mise en place d'un repository `GITEA`.
 
-### Prerequisites
+<!-- MySQL -->
+### MySQL
+Vous trouverez à ce [lien](https://github.com/NicoDevOpsFr/Project_File-rouge/blob/main/Documentation/mysql.md) la documentation concernant la mise en place d'une base de donnée `MYSQL`.
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+<!-- Grafana -->
+### Grafana
+Vous trouverez à ce [lien](https://github.com/NicoDevOpsFr/Project_File-rouge/blob/main/Documentation/grafana.md) la documentation concernant la mise en place d'une solution graphique pour du scraping des donner `GRAFANA`.
 
-### Installation
+<!-- Prometheus -->
+### Prometheus
+Vous trouverez à ce [lien](https://github.com/NicoDevOpsFr/Project_File-rouge/blob/main/Documentation/prometheus.md) la documentation concernant la mise en place d'une solution de scraping de statistique de serveurs `PROMETHEUS`.
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/github_username/repo_name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+<!-- LICENcE -->
+## Licence
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
-
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Licence libre de droit pour le travail. Pour la licence des logiciels utilisés, merci de se référer à leur documentation.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -195,9 +133,12 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+- Azaizia Abdelmalik
+- Berrodier Nicolas
+- Bidaud Pierre
+- Hoh Damien
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Project Link: [https://github.com/NicoDevOpsFr/Project_File-rouge](https://github.com/NicoDevOpsFr/Project_File-rouge)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -245,3 +186,17 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
+[Docker.com]: https://img.shields.io/badge/Docker-0F54CE?style=for-the-badge&logo=docker&logoColor=white
+[Docker-url]: https://docker.com
+[Ansible.com]: https://img.shields.io/badge/Ansible-000000?style=for-the-badge&logo=ansible&logoColor=white
+[Ansible-url]: https://ansible.com
+[Nginx.com]: https://img.shields.io/badge/Nginx-12882B?style=for-the-badge&logo=nginx&logoColor=white
+[Nginx-url]: https://nginx.com
+[Grafana.com]: https://img.shields.io/badge/Grafana-FBBF17?style=for-the-badge&logo=grafana&logoColor=white
+[Grafana-url]: https://nginx.com
+[Prometheus.com]: https://img.shields.io/badge/Prometheus-D43D26?style=for-the-badge&logo=prometheus&logoColor=white
+[Prometheus-url]: https://prometheus.io
+[WordPress.com]: https://img.shields.io/badge/Wordpress-042E44?style=for-the-badge&logo=wordpress&logoColor=white
+[WordPress-url]: https://prometheus.io
+[Gitea.com]: https://img.shields.io/badge/Gitea-406E19?style=for-the-badge&logo=gitea&logoColor=white
+[Gitea-url]: https://gitea.io
