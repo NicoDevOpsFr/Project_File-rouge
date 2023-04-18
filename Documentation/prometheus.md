@@ -118,3 +118,17 @@ Une fois configurer, le service prometheus pour alors récolter les métriques d
     ports:
       - 9100:9100
 ```
+
+Le node-exporter collecte les métriques du système d'exploitation et les expose pour être collectées par un outil de surveillance tel que Prometheus.
+
+L'image utilisée pour le node-exporter est la dernière version disponible de **prom/node-exporter** depuis Docker Hub.
+
+Dans la partie volume, on permet au node-exporter d'accéder aux informations système. Les répertoires ```/proc```, ```/sys``` et ```/``` sont montés en lecture seule (**/proc:/host/proc:ro, /sys:/host/sys:ro, /:/rootfs:ro**).
+
+Des commandes sont utilisées pour configurer le chemin d'accès aux informations du système dans le node-exporter.
+
+Les commandes ```--path.procfs=/host/proc```, ```--path.rootfs=/rootfs```, ```--path.sysfs=/host/sys``` spécifient les chemins pour accéder aux informations du système d'exploitation. La commande ```--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)``` exclut les points de montage du système de fichiers qui ne doivent pas être surveillés.
+
+Le node-exporter est configuré pour exposer le **port 9100**. Ce port permet à un outil de surveillance, tel que Prometheus, de collecter les métriques exposées par le node-exporter.
+
+Avec ce service maintenant configuré, les données du conteneur wordpress seront exposées afin d'être collecté par un outil externe tel que Prometheus.
