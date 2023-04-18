@@ -100,3 +100,21 @@ Dans la section globale, on déclare des variables globales qui s'appliquent à 
 ```regex et replacement:``` Ces configurations remplacent une partie de la valeur d'une étiquette par une nouvelle valeur en utilisant une expression régulière.
 
 Une fois configurer, le service prometheus pour alors récolter les métriques du service wordpress et du service git, qui les exposent sur un port. Ce service peut être couplé à un service de restitutions des métriques pour un affichage sur tableau de bord comme Grafana.
+
+```
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    ports:
+      - 9100:9100
+```
