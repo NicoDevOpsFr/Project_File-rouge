@@ -1,0 +1,35 @@
+- name: ==== Etape 1 sur 6 --- Mise en place du proxy NGINX ====
+  hosts: proxy
+  become: true
+  role:
+    - nginx
+
+- name: ==== Etape 2 sur 6 --- Mise en place de MYSQL ====
+  hosts: db
+  become: true
+  role:
+    - mysql
+
+- name: ==== Etape 3 sur 6 --- Mise en place de WORDPRESS avec docker-compose ====
+  hosts: web
+  become: true
+  role:
+    - wordpress
+
+- name: ==== Etape 4 sur 6 --- Mise en place de GITEA avec docker-compose ====
+  hosts: git
+  become: true
+  role:
+    - gitea
+
+- name: ==== Etape 5 sur 6 --- Mise en place de PROMETHEUS avec docker-compose ====
+  hosts: prometheus
+  become: true
+  role:
+    - pb-prometheus
+
+- name: ==== Etape 6 sur 6 --- Mise en place de GRAFANA avec docker-compose ====
+  hosts: grafana
+  become: true
+  role:
+    - grafana

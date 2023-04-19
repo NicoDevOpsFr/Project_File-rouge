@@ -1,0 +1,59 @@
+- name: ==== Etape 1 sur 6 --- Mise en place du proxy NGINX ====
+  hosts: proxy
+  become: true
+  tasks:
+    - name: ___Lancement du docker-compose___
+      command: sudo docker-compose down
+      args:
+        chdir: /home/"{{ nginx_username }}"/nginx
+    
+    - name: ___Arrêt du service NGINX___
+      service:
+        name: nginx
+        state: stopped
+        enabled: true
+
+- name: ==== Etape 2 sur 6 --- Mise en place de MYSQL ====
+  hosts: db
+  become: true
+  tasks:
+    - name: ___Lancement du docker-compose___
+      command: sudo docker-compose down
+      args:
+        chdir: /home/"{{ mysql_username }}"/mysql
+
+- name: ==== Etape 3 sur 6 --- Mise en place de WORDPRESS avec docker-compose ====
+  hosts: web
+  become: true
+  tasks:
+    - name: ___Lancement du docker-compose___
+      command: sudo docker-compose down
+      args:
+        chdir: /home/"{{ wordpress_username }}"/wordpress
+
+- name: ==== Etape 4 sur 6 --- Mise en place de GITEA avec docker-compose ====
+  hosts: git
+  become: true
+  tasks:
+    - name: ___Lancement du docker-compose___
+      command: sudo docker-compose down
+      args:
+        chdir: /home/"{{ gitea_username }}"/git/
+
+- name: ==== Etape 5 sur 6 --- Mise en place de PROMETHEUS avec docker-compose ====
+  hosts: prometheus
+  become: true
+  tasks:
+    - name: ___Lancement du docker-compose___
+      command: sudo docker-compose down
+      args:
+        chdir: /home/"{{ prometheus_username }}"/prometheus
+
+- name: ==== Etape 6 sur 6 --- Mise en place de GRAFANA avec docker-compose ====
+  hosts: grafana
+  become: true
+  tasks:
+    - name: ___Lancement du docker-compose___
+      command: sudo docker-compose down
+      args:
+        chdir: /home/"{{ grafana_username }}"/grafana

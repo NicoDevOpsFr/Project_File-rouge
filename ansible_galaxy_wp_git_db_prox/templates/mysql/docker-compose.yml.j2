@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:latest
+    container_name: database
+    environment:
+      - MYSQL_ROOT_PASSWORD="{{ mysql_root_password }}"
+    restart: always
+    volumes:
+      - /home/"{{ mysql_username }}"/database_users/databases.sql:/docker-entrypoint-initdb.d/databases.sql
+      - db_data:/var/lib/mysql
+    ports:
+      - 3306:3306
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    ports:
+      - 9100:9100
+
+volumes:
+  db_bata:

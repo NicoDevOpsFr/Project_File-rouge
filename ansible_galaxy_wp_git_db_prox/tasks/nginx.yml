@@ -1,0 +1,120 @@
+- name: ___Installation du service NGINX___
+  apt:
+    name: nginx
+    state: present
+    update_cache: true
+
+- name: ___Arrêt du service NGINX___
+  service:
+    name: nginx
+    state: stopped
+    enabled: true
+
+- name: ___Installation de docker et ces dépendance___
+  notify:
+    - Installation des paquets systèmes requis
+    - Ajout de Docker GPG apt Key
+    - Ajout d'un Docker Repository
+    - Installation de docker-ce et docker-compose
+    - Installation du module docker pour python
+
+- name: ___Création ddu dossier LANDING_PAGE pour l'index___
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - /var/www/landing_page
+    - /home/"{{ nginx_username }}"/script
+
+- name: ___Copie de l'index.html___
+  template:
+    src: ./templates/index/index.html.j2
+    dest: /var/www/landing_page/index.html
+    owner: "{{ nginx_username }}"
+    group: "{{ nginx_username }}"
+    mode: 0644
+
+- name: ___Copie des fichiers de configuration___
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ nginx_username }}"
+    group: "{{ nginx_username }}"
+    mode: 0644
+  loop:
+    - src: ./templates/wordpress/conf.d/wordpress.conf.j2
+      dest: /etc/nginx/sites-available/wordpress.conf
+    - src: ./templates/gitea/conf.d/git.conf.j2
+      dest: /etc/nginx/sites-available/git.conf
+    - src: ./templates/index/conf.d/index.conf.j2
+      dest: /etc/nginx/sites-available/index.con
+    - src: ./templates/grafana/conf.d/grafana.conf.j2
+      dest: /etc/nginx/sites-available/grafana.con
+    - src: ./templates/prometheus/conf.d/prometheus.conf.j2
+      dest: /etc/nginx/sites-available/index.con
+
+- name: ___Copie du script CERTBOT___
+  template:
+    src: ./templates/scripts/certbot_installation_script.sh.j2
+    dest: /home/"{{ nginx_username }}"/scripts/certbot_installation_script.sh
+    owner: "{{ nginx_username }}"
+    group: "{{ nginx_username }}"
+    mode: 0644
+
+- name: ___Copie du cron CERTBOT___
+  copy:
+    src: ./files/cron_certbot_renew_60days
+    dest: /etc/cron.d/cron_certbot_renew_60days
+    owner: "{{ nginx_username }}"
+    group: "{{ nginx_username }}"
+    mode: 0644
+
+- name: ___Création du fichier renew.log___
+  command: sudo touch /var/log/letsencrypt/renew.log
+
+- name: ___Lecture du scipt CERTBOT___
+  script: 
+    cmd: /home/"{{ nginx_username }}"/scripts/certbot_installation_script.sh
+
+- name: ___Activation des fichiers de configuration___
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - src: /etc/nginx/sites-available/wordpress.conf
+      dest: /etc/nginx/sites-enabled/wordpress.conf
+    - src: /etc/nginx/sites-available/git.conf
+      dest: /etc/nginx/sites-enabled/git.conf
+    - src: /etc/nginx/sites-available/index.conf
+      dest: /etc/nginx/sites-enabled/index.conf
+    - src: /etc/nginx/sites-available/grafana.conf
+      dest: /etc/nginx/sites-enabled/grafana.conf
+    - src: /etc/nginx/sites-available/prometheus.conf
+      dest: /etc/nginx/sites-enabled/prometheus.conf
+
+- name: ___Désactivation de la configuration NGINX par défaut (default.conf)___
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: ___Redemarrage du service NGINX___
+  service:
+    name: nginx
+    state: started
+
+- name: ___Création du fichier NGINX dans le home directory___
+  file:
+    path: /home/"{{ nginx_username }}"/nginx
+    state: directory
+
+- name: ___Copie des fichiers docker-compose___
+  template:
+      src: ./templates/nginx/docker-compose.yml.j2
+      dest: /home/"{{ nginx_username }}"/nginx/docker-compose.yml
+      mode: 0755
+
+- name: ___Lancement du docker-compose___
+  command: sudo docker-compose up -d
+  args:
+    chdir: /home/"{{ nginx_username }}"/nginx

@@ -1,0 +1,9 @@
+server {
+    listen 80;
+    server_name "{{ sous_domaine_somily }}" "{{ sous_domaine_www_somily }}";
+    root /var/www/landing_page;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}

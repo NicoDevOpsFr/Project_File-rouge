@@ -1,0 +1,112 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: '"{{ name_job_prometheus_wordpress }}"'
+    metrics_path: '/metrics'
+    scheme: 'http'
+    static_configs:
+      - targets: ['"{{ ip_address_wordpress }}":9100']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+      - source_labels: [__meta_docker_compose_service]
+        action: replace
+        target_label: job
+      - source_labels: [__meta_docker_compose_service]
+        regex: "(.+)"
+        target_label: service
+        replacement: "$1"
+      - source_labels: [__meta_docker_compose_container_label_com_docker_compose_project]
+        target_label: project
+
+  - job_name: '" {{ name_job_prometheus_git }}"'
+    metrics_path: '/metrics'
+    scheme: 'http'
+    static_configs:
+      - targets: ['"{{ ip_address_gitea }}":9100']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+      - source_labels: [__meta_docker_compose_service]
+        action: replace
+        target_label: job
+      - source_labels: [__meta_docker_compose_service]
+        regex: "(.+)"
+        target_label: service
+        replacement: "$1"
+      - source_labels: [__meta_docker_compose_container_label_com_docker_compose_project]
+        target_label: project
+
+  - job_name: '"{{ name_job_prometheus_mysql }}"'
+    metrics_path: '/metrics'
+    scheme: 'http'
+    static_configs:
+      - targets: ['"{{ ip_address_mysql }}":9100']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+      - source_labels: [__meta_docker_compose_service]
+        action: replace
+        target_label: job
+      - source_labels: [__meta_docker_compose_service]
+        regex: "(.+)"
+        target_label: service
+        replacement: "$1"
+      - source_labels: [__meta_docker_compose_container_label_com_docker_compose_project]
+        target_label: project
+
+  - job_name: '" {{ name_job_prometheus_nginx }}"'
+    metrics_path: '/metrics'
+    scheme: 'http'
+    static_configs:
+      - targets: ['"{{ ip_address_nginx }}":9100']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+      - source_labels: [__meta_docker_compose_service]
+        action: replace
+        target_label: job
+      - source_labels: [__meta_docker_compose_service]
+        regex: "(.+)"
+        target_label: service
+        replacement: "$1"
+      - source_labels: [__meta_docker_compose_container_label_com_docker_compose_project]
+        target_label: project
+
+  - job_name: '" {{ name_job_prometheus_prometheus }}"'
+    metrics_path: '/metrics'
+    scheme: 'http'
+    static_configs:
+      - targets: ['"{{ ip_address_prometheus }}":9100']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+      - source_labels: [__meta_docker_compose_service]
+        action: replace
+        target_label: job
+      - source_labels: [__meta_docker_compose_service]
+        regex: "(.+)"
+        target_label: service
+        replacement: "$1"
+      - source_labels: [__meta_docker_compose_container_label_com_docker_compose_project]
+        target_label: project
+
+  - job_name: '" {{ name_job_prometheus_grafana }}"'
+    metrics_path: '/metrics'
+    scheme: 'http'
+    static_configs:
+      - targets: ['"{{ ip_address_grafana }}":9100']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+      - source_labels: [__meta_docker_compose_service]
+        action: replace
+        target_label: job
+      - source_labels: [__meta_docker_compose_service]
+        regex: "(.+)"
+        target_label: service
+        replacement: "$1"
+      - source_labels: [__meta_docker_compose_container_label_com_docker_compose_project]
+        target_label: project

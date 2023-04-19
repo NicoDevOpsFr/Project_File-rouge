@@ -1,0 +1,53 @@
+---
+# Fichier de variables pour wp_git_db_prox
+
+# Variables pour NGINX
+ip_address_nginx: <ip_serveur_nginx>
+nginx_username: <nom_utilisateur_serveur_nginx>
+name_job_prometheus_nginx: <nom_prometheus_scraping_nginx>
+
+# Variables pour MYSQL
+ip_address_mysql: <ip_serveur_mysql>
+mysql_username: <nom_utilisateur_serveur_mysql>
+mysql_root_password: mot_de_passe_utilisateur_root>
+name_database_wordpress: <nom_base_de_donnée_pour_wordpress>
+user_database_wordpress: <nom_utilisateur_pour_base_de_donnée_wordpress>
+password_database_wordpress: <mot_de_passe_utilisateur_pour_base_de_donnée_wordpress>
+name_database_git: <nom_base_de_donnée_pour_git>
+user_database_git: <nom_utilisateur_pour_base_de_donnée_git>
+password_database_git: <mot_de_passe_utilisateur_pour_base_de_donnée_wordpressgit>
+name_job_prometheus_mysql: <nom_prometheus_scraping_mysql>
+
+# Variables pour WORDPRESS
+ip_address_wordpress: <ip_serveur_wordpress>
+wordpress_username: <nom_utilisateur_serveur_wordpress>
+sous_domaine_wordpress: <domaine_ou_sous_domaine_wordpress>
+sous_domaine_www_wordpress: <domaine_ou_sous_domaine_www_wordpress>
+name_job_prometheus_wordpress: <nom_prometheus_scraping_wordpress>
+
+# Variables pour GITEA
+ip_address_gitea: <ip_serveur_gitea>
+gitea_username: <nom_utilisateur_serveur_gitea>
+sous_domaine_git: <domaine_ou_sous_domaine_git>
+sous_domaine_www_git: <domaine_ou_sous_domaine_www_git>
+name_job_prometheus_git: <nom_prometheus_scraping_git>
+
+# Variables pour GRAFANA
+ip_address_grafana: <ip_serveur_grafana>
+grafana_username: <nom_utilisateur_serveur_grafana>
+sous_domaine_grafana: <domaine_ou_sous_domaine_grafana>
+sous_domaine_www_grafana: <domaine_ou_sous_domaine_www_grafana>
+grafana_username_account: pierre
+grafana_password_account: pierre
+name_job_prometheus_grafana: <nom_prometheus_scraping_grafana>
+
+# Variables pour PROMETHEUS
+ip_address_prometheus: <ip_serveur_prometheus>
+prometheus_username: <nom_utilisateur_serveur_prometheus>
+sous_domaine_prometheus: <domaine_ou_sous_domaine_prometheus>
+sous_domaine_www_prometheus: <domaine_ou_sous_domaine_www_prometheus>
+name_job_prometheus_prometheus: <nom_prometheus_scraping_prometheus>
+
+# Variables pour index de www.somily.fr
+sous_domaine_somily: <domaine_ou_sous_domaine_somily>
+sous_domaine_www_somily: <domaine_ou_sous_domaine_www_somily>

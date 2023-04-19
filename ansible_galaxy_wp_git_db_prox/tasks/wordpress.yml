@@ -1,0 +1,23 @@
+- name: ___Installation de docker et ces dépendance___
+  notify:
+    - Installation des paquets systèmes requis
+    - Ajout de Docker GPG apt Key
+    - Ajout d'un Docker Repository
+    - Installation de docker-ce et docker-compose
+    - Installation du module docker pour python
+
+- name: ___Création du fichier WORDPRESS dans le home directory___
+  file:
+    path: /home/"{{ wordpress_username }}"/wordpress
+    state: directory
+
+- name: ___Copie du fichier docker-compose___
+  template:
+    src: ./templates/wordpress/docker-compose.yml.j2
+    dest: /home/"{{ wordpress_username }}"/docker-compose.yml
+    mode: 0644
+  
+- name: ___Lancement du docker-compose___
+  command: sudo docker-compose up -d
+  args:
+    chdir: /home/"{{ wordpress_username }}"/wordpress

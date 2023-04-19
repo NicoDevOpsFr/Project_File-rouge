@@ -1,0 +1,36 @@
+version: '3.3'
+
+services:
+  web:
+    image: wordpress:latest
+    container_name: wordpress-somily
+    volumes:
+      - ./wordpress/volumes/:/var/www/html
+    restart: always
+    environment:
+      - WORDPRESS_DB_HOST="{{ ip_address_mysql }}":3306
+      - WORDPRESS_DB_USER="{{ user_database_wordpress }}"
+      - WORDPRESS_DB_PASSWORD="{{ password_database_wordpress }}"
+      - WORDPRESS_DB_NAME="{{ name_database_wordpress }}"
+    labels:
+      - "prometheus_job={{ name_job_prometheus }}"
+      - "prometheus.path=/metrics"
+    ports:
+      - 80:80
+      - 443:443
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter-prometheus
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    ports:
+      - 9100:9100
