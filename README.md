@@ -140,9 +140,9 @@ Project Link: [https://github.com/NicoDevOpsFr/Project_File-rouge](https://githu
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* []()
-* []()
-* []()
+* AJC INGENIERIE
+* SOPRA STERIA
+* SEMIFIR
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
